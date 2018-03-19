@@ -21,6 +21,9 @@
 '   CHANGE LOG
 '       03-18-2018 - 1.0 - Release Version
 '       03-18-2018 - 1.1 - Added Episode # in Input File
+'       03-19-2018 - 1.2 - Set FFMpeg Window to Minimized
+'                          Overwrite file if exists
+'
 '
 set fs=CreateObject("Scripting.FileSystemObject")
 Set objShell = CreateObject("WScript.Shell")
@@ -50,7 +53,7 @@ While Not inFile.AtEndOfStream
         intEpisode = intEpisode + 1
     End If
     strVideoFilename = strShow & " - " & strSeason & "E" & PadLeft(intEpisode,"0",2) & ".mp4"
-    objShell.Run "FFMPEG -i """ & URL & """ -c copy """ & strVideoFilename & """",1,Not boolASync
+    objShell.Run "FFMPEG -i """ & URL & """ -c copy -y """ & strVideoFilename & """",2,Not boolASync
     
 Wend
 
