@@ -23,7 +23,7 @@
 '       03-18-2018 - 1.1 - Added Episode # in Input File
 '       03-19-2018 - 1.2 - Set FFMpeg Window to Minimized
 '                          Overwrite file if exists
-'	    04-28-2018 - 1.3 - Change Episode # in Input File to include full Season: eg S00E03,{URL}
+'	04-28-2018 - 1.3 - Change Episode # in Input File to Include Full Season: eg S00E03,{URL}
 '
 '
 set fs=CreateObject("Scripting.FileSystemObject")
