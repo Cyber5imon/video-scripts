@@ -8,7 +8,7 @@
 'Copyright 2018          Simon Durkee          Simon@SimonDurkee.com         http://www.SimonDurkee.com                                                                                                     
 '         _______________________________________
 '________|                                      |_______
-'\       |       DownloadFile-FFMpeg.vbs        |      /
+'\       |       DownloadURLs-FFMpeg.vbs        |      /
 ' \      |                                      |     /
 ' /      |______________________________________|     \
 '/__________)                                (_________\
@@ -23,6 +23,7 @@
 '       03-18-2018 - 1.1 - Added Episode # in Input File
 '       03-19-2018 - 1.2 - Set FFMpeg Window to Minimized
 '                          Overwrite file if exists
+'	    04-28-2018 - 1.3 - Change Episode # in Input File to include full Season: eg S00E03,{URL}
 '
 '
 set fs=CreateObject("Scripting.FileSystemObject")
@@ -46,13 +47,15 @@ While Not inFile.AtEndOfStream
     inLine = inFile.ReadLine()
     If InStr(inLine,",") Then
         arrayLine = Split(inLine,",")
-        intEpisode = arrayLine(0)
+	strEpisode = arrayLine(0)
         URL = arrayLine(1)
     Else
         URL = inLine
         intEpisode = intEpisode + 1
+	strEpisode = strSeason & "E" & PadLeft(intEpisode,"0",2)
     End If
-    strVideoFilename = strShow & " - " & strSeason & "E" & PadLeft(intEpisode,"0",2) & ".mp4"
+    strVideoFilename = strShow & " - " & strEpisode & ".mp4"
+    Wscript.Echo "Downloading " & strVideoFilename
     objShell.Run "FFMPEG -i """ & URL & """ -c copy -y """ & strVideoFilename & """",2,Not boolASync
     
 Wend
